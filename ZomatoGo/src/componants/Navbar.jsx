@@ -36,7 +36,7 @@ export const Navbar = () => {
 					</li>
 					<li><Link className="text-sm  font-bold" to='/createuser'>About Us</Link></li>
 				</ul>
-					<form className="hidden lg:flex lg:items-center lg:w-auto lg:space-x-6 lg:ml-auto">
+					{/* <form className="hidden lg:flex lg:items-center lg:w-auto lg:space-x-6 lg:ml-auto">
 
 						<input
 							type="text"
@@ -46,9 +46,12 @@ export const Navbar = () => {
 						<button className='flex flex-col justify-center m-0'>
 							<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" /></svg>
 						</button>
-					</form>
+					</form> */}
+					<div className='hidden lg:inline-block '>
+
 				<Link className="hidden lg:inline-block lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-200 text-sm text-gray-900 font-bold  rounded-xl transition duration-200" to="/login">Login In</Link>
 				<Link className="hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200" to='/createuser'>Sign up</Link>
+					</div>
 			</nav>
 
 
