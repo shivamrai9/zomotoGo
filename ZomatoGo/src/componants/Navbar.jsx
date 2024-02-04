@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, Navigate,useNavigate } from 'react-router-dom';
 
 export const Navbar = () => {
 	const [isMenuOpen, setMenuOpen] = useState(false);
+	const navigate =  useNavigate()
 
 	const toggleMenu = () => {
 		setMenuOpen(!isMenuOpen);
@@ -11,6 +12,11 @@ export const Navbar = () => {
 	const closeMenu = () => {
 		setMenuOpen(false);
 	};
+
+	const handleLogout = ()=>{
+		localStorage.removeItem("authToken");
+		navigate('/login')
+	}
 
 	return (
 		<>
@@ -27,7 +33,7 @@ export const Navbar = () => {
 						</svg>
 					</button>
 				</div>
-				<ul className="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:items-center lg:w-auto lg:space-x-6">
+				{/* <ul className="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:items-center lg:w-auto lg:space-x-6">
 					<li><Link className="text-sm text-gray-400 hover:text-blue-600 font-bold" to="/login">Home</Link></li>
 					<li className="text-gray-300 ">
 						<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" className="w-4 h-4 current-fill" viewBox="0 0 24 24">
@@ -35,8 +41,8 @@ export const Navbar = () => {
 						</svg>
 					</li>
 					<li><Link className="text-sm  font-bold" to='/createuser'>About Us</Link></li>
-				</ul>
-					{/* <form className="hidden lg:flex lg:items-center lg:w-auto lg:space-x-6 lg:ml-auto">
+				</ul> */}
+				{/* <form className="hidden lg:flex lg:items-center lg:w-auto lg:space-x-6 lg:ml-auto">
 
 						<input
 							type="text"
@@ -47,11 +53,31 @@ export const Navbar = () => {
 							<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" /></svg>
 						</button>
 					</form> */}
-					<div className='hidden lg:inline-block '>
+				<div className='hidden lg:inline-block '>
+					{
+						(localStorage.getItem('authToken')) ?
+							<>
+								{/* <button class="flex items-center justify-center bg-blue-500 text-white w-12 h-12 rounded-full">
+									<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2zm0 0l1.9 7.6a2 2 0 002 1.4h8.2a2 2 0 002-1.4L19 3M5 3v6h14V3"></path>
+									</svg>
+								</button> */}
+								<Link className="hidden lg:inline-block lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-200 text-sm text-gray-900 font-bold  rounded-xl transition duration-200" to="/login">My Order</Link>
 
-				<Link className="hidden lg:inline-block lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-200 text-sm text-gray-900 font-bold  rounded-xl transition duration-200" to="/login">Login In</Link>
-				<Link className="hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200" to='/createuser'>Sign up</Link>
-					</div>
+							</>
+							: ""
+
+					}
+					{
+						(!localStorage.getItem('authToken')) ?
+							<>
+
+								<Link className="hidden lg:inline-block lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-200 text-sm text-gray-900 font-bold  rounded-xl transition duration-200" to="/login">Login In</Link>
+								<Link className="hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200" to='/createuser'>Sign up</Link>
+							</> :
+							<div className="hidden lg:inline-block py-2 px-6 bg-red-500 hover:bg-red-600 text-sm text-white font-bold rounded-xl transition duration-200" to='/login' onClick={handleLogout}>Log Out</div>
+					}
+				</div>
 			</nav>
 
 
@@ -61,7 +87,7 @@ export const Navbar = () => {
 					<div className="flex items-center mb-8">
 						<Link className="mr-auto text-3xl font-bold leading-none text-red-500" to="/">
 
-					ZomatoGo
+							ZomatoGo
 						</Link>
 						<button className="navbar-close" onClick={closeMenu}    >
 							<svg className="h-6 w-6 text-gray-400 cursor-pointer hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

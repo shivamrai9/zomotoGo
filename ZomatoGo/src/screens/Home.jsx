@@ -24,36 +24,38 @@ const Home = () => {
     fetchData();
   }, []);
   console.log(foodItems, "foodItems")
-console.log(foodCategories,"foodCategoryw")
+  console.log(foodCategories, "foodCategoryw")
 
- 
+
   return (
     <>
-      <div className='w-full m-auto lg:w-10/12'>
+      <div className='w-full m-auto lg:w-11/12'>
 
         <div>
           <Navbar />
         </div>
-        <div className='container'>
-          {/* mx-auto mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 */}
+        <div className='container mx-auto'>
           {
             foodCategories.length !== 0
-              ? 
+              ?
               foodCategories.map((data) => {
                 return (
                   <>
-                    <div key={data._id}>
-                      {data.CategoryName}
-                    </div>
-                    <hr />
 
-                    {foodItems.filter(item => item.CategoryName == data.CategoryName).map((filterItems)=>{
-                      return(
-                        <div key={filterItems._id} className='border-red-600 border'>
-                          <Card foodName={filterItems.name} imgSrc={filterItems.img} options={filterItems.options[0]} foodDescription={filterItems.description}/>
-                        </div>
-                      )
-                    })}
+
+                    <div key={data._id}>
+                      <h2 class="text-2xl font-semibold mb-4">{data.CategoryName}</h2>
+                    </div>
+                    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+                      {foodItems.filter(item => item.CategoryName == data.CategoryName).map((filterItems) => {
+                        return (
+                          <div key={filterItems._id} className=''>
+                            <Card foodName={filterItems.name} imgSrc={filterItems.img} options={filterItems.options[0]} foodDescription={filterItems.description} />
+                            {/* shivam */}
+                          </div>
+                        )
+                      })}
+                    </div>
                   </>
                 )
               })

@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function Card({ imgSrc, foodName, foodDescription, options }) {
-    const MAX_DESCRIPTION_LENGTH = 25;
+    const MAX_DESCRIPTION_LENGTH = 19;
     const truncatedDescription =
         foodDescription.length > MAX_DESCRIPTION_LENGTH
             ? `${foodDescription.substring(0, MAX_DESCRIPTION_LENGTH)}...`
@@ -11,6 +11,10 @@ export default function Card({ imgSrc, foodName, foodDescription, options }) {
 
     const priceOptions =  keys.slice(0, -1);
     console.log(priceOptions)
+
+    const handleAddToCart = ()=>{
+
+    }
 
     return (
         <div className="flex flex-grow max-w-sm h-44  rounded-3xl overflow-hidden shadow-lg bg-slate-200 p-2">
@@ -25,7 +29,7 @@ export default function Card({ imgSrc, foodName, foodDescription, options }) {
             </div>
             <div className="relative w-1/2 h-full ml-2 flex flex-col pl-1">
                 {/* Product Title */}
-                <div className="font-medium text-xl">{foodName}</div>
+                <div className="font-medium text-lg">{foodName}</div>
                 {/* Product Description */}
                 <p className="text-gray-500 text-sm mb-2">{truncatedDescription}</p>
                 <div className="flex flex-row w-full items-center justify-between align-middle">
@@ -60,7 +64,10 @@ export default function Card({ imgSrc, foodName, foodDescription, options }) {
                         <p className="text-gray-700 text-base font-bold">₹ 150</p>
                     </div>
                     <div className="w-1/2">
-                        <button className="w-full font-bold text-xs rounded-lg bg-green-600 py-2 text-white shadow-lg hover:bg-green-700 transition duration-200">
+                        <button 
+                        onClick={handleAddToCart}
+                        className="w-full font-bold text-xs rounded-lg bg-green-600 py-2 text-white shadow-lg hover:bg-green-700 transition duration-200">
+                        
                             Add to Cart
                         </button>
                     </div>
