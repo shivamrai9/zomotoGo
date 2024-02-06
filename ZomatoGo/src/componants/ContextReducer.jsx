@@ -12,11 +12,11 @@ const reducer = (state,action) => {
                 name: action.name,
                 qty: action.qty,
                 size: action.size,
-                img:action.img
+                img:action.img,
+                price: action.price
             }]
             default:
-                // console.log(action);
-                return state
+                console.log("Error in reducer",action.type);
     }
 }
 

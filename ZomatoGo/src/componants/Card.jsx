@@ -26,7 +26,7 @@ export default function Card({ options, foodItems }) {
 
     const handleAddToCart = async () => {
         await dispatch({
-            typeof: "ADD",
+            type: "ADD",
             id: foodItems._id,
             name: foodname,
             price: foodItems.finalPrice,

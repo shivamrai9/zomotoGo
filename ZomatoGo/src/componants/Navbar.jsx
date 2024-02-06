@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { Link, Navigate,useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 export const Navbar = () => {
 	const [isMenuOpen, setMenuOpen] = useState(false);
-	const navigate =  useNavigate()
+	const navigate = useNavigate()
 
 	const toggleMenu = () => {
 		setMenuOpen(!isMenuOpen);
@@ -13,8 +13,8 @@ export const Navbar = () => {
 		setMenuOpen(false);
 	};
 
-	const handleLogout = ()=>{
-		localStorage.removeItem("authToken");
+	const handleLogout = () => {
+		localStorageNaNpxoveItem("authToken");
 		navigate('/login')
 	}
 
@@ -57,16 +57,17 @@ export const Navbar = () => {
 					{
 						(localStorage.getItem('authToken')) ?
 							<>
-								{/* <button class="flex items-center justify-center bg-blue-500 text-white w-12 h-12 rounded-full">
-									<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2zm0 0l1.9 7.6a2 2 0 002 1.4h8.2a2 2 0 002-1.4L19 3M5 3v6h14V3"></path>
-									</svg>
-								</button> */}
+								<div className="relative hidden lg:inline-block lg:mr-3">
+									<div className="py-2 px-6 bg-green-400 hover:bg-gray-200 text-sm text-gray-900 font-bold rounded-xl transition duration-200" to="/login">
+										Cart
+									</div>
+									<span className="absolute top-[-10px] right-[-5px] bg-red-500 rounded-full px-2 py-1 text-white text-xs font-bold">
+										5 
+									</span>
+								</div>
 								<Link className="hidden lg:inline-block lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-200 text-sm text-gray-900 font-bold  rounded-xl transition duration-200" to="/login">My Order</Link>
-
 							</>
 							: ""
-
 					}
 					{
 						(!localStorage.getItem('authToken')) ?
