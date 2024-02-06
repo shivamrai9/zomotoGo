@@ -23,10 +23,6 @@ const Home = () => {
 
     fetchData();
   }, []);
-  console.log(foodItems, "foodItems")
-  console.log(foodCategories, "foodCategoryw")
-
-
   return (
     <>
       <div className='w-full m-auto lg:w-11/12'>
@@ -40,23 +36,23 @@ const Home = () => {
               ?
               foodCategories.map((data) => {
                 return (
-                  <>
-
-
-                    <div key={data._id}>
-                      <h2 class="text-2xl font-semibold mb-4">{data.CategoryName}</h2>
+                  <div key={data._id}>
+                    <div >
+                      <h2 className="text-2xl font-semibold mb-4">{data.CategoryName}</h2>
                     </div>
-                    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+                    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10'>
                       {foodItems.filter(item => item.CategoryName == data.CategoryName).map((filterItems) => {
                         return (
                           <div key={filterItems._id} className=''>
-                            <Card foodName={filterItems.name} imgSrc={filterItems.img} options={filterItems.options[0]} foodDescription={filterItems.description} />
-                            {/* shivam */}
+                            <Card 
+                            // foodName={filterItems.name} 
+                            foodItems={filterItems}
+                            options={filterItems.options[0]} />
                           </div>
                         )
                       })}
                     </div>
-                  </>
+                  </div>
                 )
               })
               : ""
