@@ -1,8 +1,15 @@
 import React, { useState } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom';
+import Modal from '../Modal';
+import Cart from '../screens/Cart';
+import { useCart } from './ContextReducer';
 
 export const Navbar = () => {
 	const [isMenuOpen, setMenuOpen] = useState(false);
+	const [cartView, setCartView] = useState(false);
+
+	const data = useCart()
+
 	const navigate = useNavigate()
 
 	const toggleMenu = () => {
@@ -16,6 +23,9 @@ export const Navbar = () => {
 	const handleLogout = () => {
 		localStorageNaNpxoveItem("authToken");
 		navigate('/login')
+	}
+	const handelCart = () => {
+		navigate('/cart')
 	}
 
 	return (
@@ -57,12 +67,12 @@ export const Navbar = () => {
 					{
 						(localStorage.getItem('authToken')) ?
 							<>
-								<div className="relative hidden lg:inline-block lg:mr-3">
+								<div className="relative hidden lg:inline-block lg:mr-3" onClick={()=>{setCartView(!cartView)}}>
 									<div className="py-2 px-6 bg-green-400 hover:bg-gray-200 text-sm text-gray-900 font-bold rounded-xl transition duration-200" to="/login">
 										Cart
 									</div>
 									<span className="absolute top-[-10px] right-[-5px] bg-red-500 rounded-full px-2 py-1 text-white text-xs font-bold">
-										5 
+										{data.length}
 									</span>
 								</div>
 								<Link className="hidden lg:inline-block lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-200 text-sm text-gray-900 font-bold  rounded-xl transition duration-200" to="/login">My Order</Link>
@@ -126,6 +136,11 @@ export const Navbar = () => {
 					</div>
 				</nav>
 			</div>
+			{cartView && (
+				<Modal onClose={()=>{setCartView(!cartView)}}>
+					<Cart />
+				</Modal>
+			)}
 		</>
 	)
 }

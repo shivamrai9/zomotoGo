@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Login from './screens/Login'
 import Signup from './screens/Signup'
 import { CartProvider } from './componants/ContextReducer'
+import Cart from './screens/Cart'
 function App() {
 
 

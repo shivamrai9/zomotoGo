@@ -34,9 +34,9 @@ export default function Card({ options, foodItems }) {
             size: size,
             img: foodimg
         })
-        console.log(data)
-
+        
     }
+    console.log(data)
 
     return (
         <div className="flex flex-grow h-55  rounded-3xl overflow-hidden shadow-lg bg-slate-200 p-2">
