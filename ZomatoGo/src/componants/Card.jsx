@@ -1,18 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatchCart } from './ContextReducer';
 import { useCart } from './ContextReducer';
 export default function Card({ options, foodItems }) {
     let dispatch = useDispatchCart();
+    const data = useCart()
 
     const [qty, setQty] = useState(1);
     const [size, setSize] = useState("");
-    const data = useCart()
-
+    const [price, setPrice] = useState(150);
+    const priceRef = useRef()
 
     let foodDescription = foodItems.description
     let foodimg = foodItems.img
     let foodname = foodItems.name
-    let foodCategoryName = foodItems.CategoryName
+    let priceOption = Object.keys(options)
+
+    const priceOptions = priceOption.slice(0, -1);
 
     const MAX_DESCRIPTION_LENGTH = 19;
     const truncatedDescription =
@@ -20,23 +23,54 @@ export default function Card({ options, foodItems }) {
             ? `${foodDescription.substring(0, MAX_DESCRIPTION_LENGTH)}...`
             : foodDescription;
 
-    let priceOption = Object.keys(options)
-
-    const priceOptions = priceOption.slice(0, -1);
 
     const handleAddToCart = async () => {
+        let food = []
+        for (const item of data) {
+            if(item.id === foodItems._id){
+                food = item;
+                break;
+            }
+        }
+        if (food != []) {
+            if (food.size === size) {
+                await dispatch({
+                    type: "UPDATE",
+                    id: foodItems._id,
+                    price: finalPrice,
+                    qty: qty
+                })
+                return
+            }
+            else if (food.size !== size) {
+                await dispatch({
+                    type: "ADD",
+                    id: foodItems._id,
+                    name: foodname,
+                    price: finalPrice,
+                    qty: qty,
+                    size: size,
+                    img: foodimg
+                })
+                return
+            }
+        }
         await dispatch({
             type: "ADD",
             id: foodItems._id,
             name: foodname,
-            price: foodItems.finalPrice,
+            price: finalPrice,
             qty: qty,
             size: size,
             img: foodimg
         })
-        
     }
-    console.log(data)
+
+    let finalPrice = qty * parseInt(options[size])
+    useEffect(()=>{
+        setSize(priceRef.current.value)
+    },[])
+    
 
     return (
         <div className="flex flex-grow h-55  rounded-3xl overflow-hidden shadow-lg bg-slate-200 p-2">
@@ -73,6 +107,7 @@ export default function Card({ options, foodItems }) {
                         <select
                             className="w-full p-2 border-none outline-none rounded"
                             onChange={(e) => setSize(e.target.value)}
+                            ref={priceRef}
                         >
                             {priceOptions.map((data) => {
                                 return (
@@ -85,7 +120,7 @@ export default function Card({ options, foodItems }) {
                 </div>
                 <div className="absolute inset-x-0 bottom-1 flex flex-row w-full items-center justify-center">
                     <div className="w-1/2 ">
-                        <p className="text-gray-700 text-base font-bold">₹ 150</p>
+                        <p className="text-gray-700 text-base font-bold">₹ {finalPrice}</p>
                     </div>
                     <div className="w-1/2">
                         <button
